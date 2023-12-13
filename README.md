@@ -1,4 +1,4 @@
-Docker Compose Jupyper
+Docker Compose ship-net 🛸 👽 satellite computer vision
 ======================
 
 # build 
