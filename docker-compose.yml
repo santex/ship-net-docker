@@ -1,0 +1,54 @@
+version: '3'
+services:
+  tensorflow_shipnet:
+    image: santezero/ship-net:latest
+    ports:
+      - 5000:5000
+    volumes:
+      - ./test:/root/notebook/data
+      - shared-tmpfs:/tmp/mytmpf
+    environment:
+      - PASSWORD=foobar
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.7.0
+    environment:
+      - xpack.security.enabled=false
+      - discovery.type=single-node
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data      
+      - shared-tmpfs:/tmp/mytmpfs
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      app_net:
+        ipv4_address: 219.20.128.6
+        
+
+
+networks: # Define custom network to assign static IPs to the container.
+  app_net:
+    ipam:
+      config:
+        - subnet: 219.20.0.0/16
+      
+volumes:
+  elasticsearch-data:
+    driver: local
+  shared-tmpfs:
+    driver: local
+    driver_opts:
+      type: "tmpfs"
+      device: "tmpfs"
+      o: "size=1024m,uid=1000"
+
