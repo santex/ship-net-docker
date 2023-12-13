@@ -1,15 +1,12 @@
 Docker Compose Jupyper
 ======================
 
-This is Docker Compose. You can boot a container based on this
-repository image with Jupyter port 8888, its password 'foobar' and sharing
-files in `notebook` directory with the container by just running
-
-```shellsession
+# build 
+```
 docker-compose up -d
 ```
 
-# RUN	
+# RUN on container
 
 ```
 python3.9 webspider.py -s c2 -e c2 -d 2 -c data -s c2 --in_filename data --out_filename data
@@ -17,3 +14,12 @@ python3.9 webspider.py -s c2 -e c2 -d 10 -c data -s c2 --in_filename data --out_
 
 ```
 
+# check
+
+on 
+
+```
+
+http://localhost:5000/
+
+```
